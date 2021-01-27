@@ -14,10 +14,18 @@ post_id = pd.read_csv("post_id.csv", names = ["post_id","post_title","board_name
 post = pd.read_csv("post_content.csv", names = ["post_id","post_content","post_title","created_at", "updated_at", "comment_count","like_count","gender"])
 comment = pd.read_csv("post_comment.csv", names = ["comment_id", "post_id","created_at", "updated_at","floor", "comment_content","like_count", "gender"])
 
+post_id = post_id.drop_duplicates()
+post = post.drop_duplicates()
+comment = comment.drop_duplicates()
+
 def get_alias_by_id(p_id):
-  p_id = p_id
-  alias = post_id.loc[post_id.post_id == p_id].alias.values[0]
-  return alias
+  try:
+    p_id = p_id
+    alias = post_id.loc[post_id.post_id == p_id].alias.values[0]
+    return alias
+  except:
+    return ""
+  
 
 # clean symbols and spaces 
 def cleaning(string):
